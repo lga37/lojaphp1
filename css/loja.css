@@ -1,0 +1,302 @@
+
+
+html, body {
+  height: 100%;
+}
+
+
+
+#main {
+  overflow:auto;
+
+}
+
+
+
+a,
+a:hover,
+a:focus,
+a:active,
+a.active {
+    outline: 0;
+    color: #18bc9c;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+
+hr.star-light,
+hr.star-primary {
+    margin: 25px auto 30px;
+    padding: 0;
+    max-width: 250px;
+    border: 0;
+    border-top: solid 5px;
+    text-align: center;
+}
+
+hr.star-light:after,
+hr.star-primary:after {
+    content: "\f005";
+    display: inline-block;
+    position: relative;
+    top: -.8em;
+    padding: 0 .25em;
+    font-family: FontAwesome;
+    font-size: 2em;
+}
+
+
+.navbar {
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+
+.navbar a:focus {
+    outline: 0;
+}
+
+.navbar .navbar-nav {
+    letter-spacing: 1px;
+}
+
+.navbar .navbar-nav li a:focus {
+    outline: 0;
+}
+
+.navbar-default,
+.navbar-inverse {
+    border: 0;
+}
+
+.btn-outline {
+    margin-top: 15px;
+    border: solid 2px #fff;
+    font-size: 20px;
+    color: #fff;
+    background: 0 0;
+    transition: all .3s ease-in-out;
+}
+
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
+    border: solid 2px #fff;
+    color: #18bc9c;
+    background: #fff;
+}
+
+footer {
+    color: #fff;
+
+
+}
+
+footer .footer-above {
+    background-color: #2c3e50;
+}
+
+footer .footer-col {
+    margin-bottom: 40px;
+}
+
+footer .footer-below {
+    padding: 15px 0;
+    background-color: #233140;
+}
+
+.btn-social {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 20px;
+    line-height: 45px;
+}
+
+.btn:focus,
+.btn:active,
+.btn.active {
+    outline: 0;
+}
+
+.scroll-top {
+    z-index: 1049;
+    position: fixed;
+    right: 2%;
+    bottom: 2%;
+    width: 50px;
+    height: 50px;
+}
+
+.scroll-top .btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.scroll-top .btn:focus {
+    outline: 0;
+}
+
+
+ ul.lista {         
+          padding:0 0 0 0;
+          margin:0 0 0 0;
+      }
+      ul.lista li {     
+          list-style:none;
+          margin:10px;           
+      }
+      ul.lista li a {
+          cursor: pointer;
+          border : 1px solid red;
+      }
+
+
+#formBusca{
+  margin-top: 8px;
+}
+.menu-categ li a{
+  border:1px solid #000;
+}
+.menu-categ li a:hover{
+  border:1px solid blue;
+}
+.navbar-default{
+  border-bottom: 3px solid blue;
+}
+
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+.form-inline .input-qtde{
+  width: 70px;
+  border: 1px solid orange;
+}
+
+
+.help-block{
+  margin: 0;
+}
+
+
+.prazo-produto{
+  margin-left: 0px;
+  padding-top: 4px;
+}
+.preco-produto{
+  font-size: 22px;
+  color: #BB1757;
+}
+
+
+.nome-produto{
+  border:0px solid blue;
+  height: 60px;
+  padding: 1px;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.8);
+  font-style: italic;
+}
+
+
+.thumbnail{
+
+  border-radius: 10px;
+  border:2px solid #ccc;
+  transition : all 1s;
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75); 
+  height:340px;
+
+}
+
+
+
+
+.thumbnail:hover{
+  border: 2px solid #000;
+}
+
+
+
+.botoes .btn{
+  margin-left: 5px;
+}
+
+
+
+.thumbnail .caption,
+.thumbnail ul,
+.thumbnail h2{
+  margin: 0 0 5px 0;
+  padding: 0;
+}
+.descricao{
+  border:1px solid blue;
+  height: 90px;
+  padding: 1px;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.8);
+  font-style: italic;
+
+
+}
+.botoes{
+  border:0px solid red;
+  margin-bottom: 5px;
+}
+
+.color1{
+  color: #BB1757;
+}
+
+.color2{
+  color: #174B97;
+}
+
+.color3{
+  color: green;
+}
+
+#main{
+  padding-top: 85px;
+  min-height: 500px;
+}
+
+.menu-categ li a{
+  text-transform: uppercase;
+}

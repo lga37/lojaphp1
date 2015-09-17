@@ -1,0 +1,36 @@
+Instalar Composer
+(composer global require "phpunit/phpunit")
+
+Download do composer, antes veja se no php.ini a opcao openssl esta habilitada, se nao estiver habilite-a e restarte o wamp
+Teste no dos com Composer
+Crie o composer.json 
+So No linux - sudo mv composer.phar /usr/local/bin/composer para centralizar instalacao
+No dos e na pasta projeto : composer install
+Download & install do Git
+Na instalacao deixar marcado esta opcao:  run git from windows command prompt
+No dos na pasta projeto
+git init
+git status
+
+Download & install do Node.js para windows
+Teste no dos com Node, depois 2+2[enter], ctrl-c 2x pra sair
+npm install -g bower
+
+usar o git bash para instalar as depend
+bower search jQuery
+
+bower install jQuery
+bower install bootstrap
+bower install fontawesome
+
+bitbucket
+git clone https://lga37@bitbucket.org/lga37/lojaphp1.git
+
+instalar virtualbox
+instalar vagrant
+
+vagrant init ubuntu/trusty64
+vagrant up
+vagrant status
+vagrant halt
+vagrant suspend
