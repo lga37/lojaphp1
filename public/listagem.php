@@ -10,7 +10,7 @@ include_once "header.php";
             if(isset($_GET['id'])){
                 $id = intval($_GET['id']);
                 $array = Produto::getAllByCategId($id);
-                $total = count($array);
+                #$total = count($array);
                 #echo paginate($total,$per_page=5);
             } else if (isset($_POST['busca'])){
                 #echo $_POST['busca'];
@@ -18,7 +18,7 @@ include_once "header.php";
                 #echo $busca;
                 $array = Produto::getAllByBusca($busca);
             } else {
-                #neste caso nao veio nem pelo GET e nem pelo POST.
+                #neste caso nao veio nem pelo GET e nem pelo POST. Redireciono de volta p index.
                 header("index.php");die;
             }
             #se nao esta vazio criamos nossa lista de produtos

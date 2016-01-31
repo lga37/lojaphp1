@@ -2,12 +2,12 @@
 /*
 Copyright (C) 2015  Luis Gustavo Almeida
 
-Este programa é um software livre; você pode redistribuí-lo e/ou 
-modificá-lo dentro dos termos da Licença Pública Geral GNU como 
-publicada pela Fundação do Software Livre (FSF); na versão 3 da 
+Este programa é um software livre; você pode redistribuí-lo e/ou
+modificá-lo dentro dos termos da Licença Pública Geral GNU como
+publicada pela Fundação do Software Livre (FSF); na versão 3 da
 Licença, ou (na sua opinião) qualquer versão.
 
-Este programa é distribuído na esperança de que possa ser útil, 
+Este programa é distribuído na esperança de que possa ser útil,
 mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO
 a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
 Licença Pública Geral GNU para maiores detalhes.
@@ -40,11 +40,15 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Loja virtual do curso PHP1 da Impacta">
-    <meta name="keywords" content="HTML,CSS,XML,JavaScript">    
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
     <meta name="author" content="Luis Gustavo Almeida">
 
     <title>Loja virtual do curso PHP1 da Impacta - LGA</title>
+    <!--
 
+    arquivos estaticos css
+
+    -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../css/loja.css" rel="stylesheet">
@@ -72,7 +76,7 @@ session_start();
                         <input type="text" class="form-control" placeholder="Busca" name="busca">
                         <button class="btn btn-success"><i class="fa fa-search"></i></button>
                     </form>
-                </div>    
+                </div>
 
                 <div class="col-md-4">
                     <ul class="nav navbar-nav navbar-right">
@@ -92,7 +96,7 @@ session_start();
                                 ?>
                                 <a href="../admin/admgus.php?action=logout"><i class="fa fa-2x sign-out"></i></a>
                                 <?php
-                            }    
+                            }
                             ?>
                         </li>
                     </ul>
@@ -103,23 +107,30 @@ session_start();
 
     <div class="container" id="main">
         <div class="row">
-           
+
             <div class="col-md-3">
                 <ul class="nav nav-pills nav-stacked menu-categ">
                 <?php
-                    #Montamos nossa query.
-                    $sql = "SELECT * FROM categorias;";
+                    #Montamos nossa query basica.
+                    $sql = "SELECT * FROM categorias order by nome;";
+                    #se quisermos colocar o numero de itens de cada categoria usamos um join
+                    # e ai temos um exemplo de consulta mais complexa
+                    $sql2 = "SELECT c.id,c.nome,COUNT(p.id) AS qtd FROM categorias as c LEFT JOIN produtos as p ON p.categ_id=c.id GROUP BY c.id ORDER BY c.nome;";
+
                     #Com a query montada acessamos nossa classe BD e chamamos o método query passando a consulta.
-                    $array= BD::query($sql);
+                    $array= BD::query($sql2);
                     #iteramos sobre o array resultante, onde ja vira no formato [id][nome]
                     #poderiamos tambem usar extract
                     foreach($array as $categ){
                         $id = $categ['id'];
                         $nome = $categ['nome'];
+                        #se usar a sql mais complexa, ela vem com um item a mais
+                        $qtd = isset($categ['qtd'])? ' ('.$categ['qtd'].')':"";
+                        $nome .= $qtd;
                         #com printf misturamos mais facilmente o html e o php, poderiamos usar echo.
                         printf("<li><a href=\"listagem.php?id=%d\">%s</a></li>",$id,$nome);
                     }
-                ?>  
-                </ul>            
+                ?>
+                </ul>
             </div>
 

@@ -70,9 +70,11 @@ function add($id,$cart){
 	$qtd = 1;
 
 	if(is_array($prd)){
-		$prd['qtd'] = $qtd; # so coloco a qtd se vier certo do banco, senao ele cria um array so com qtd.
+		$prd['qtd'] = $qtd;
+		# so coloco a qtd se vier certo do banco, senao ele cria um array vazio so com qtd.
 		if(!has($id,$cart) && can($qtd,$estoque,$prazo)){
 			$_SESSION['cart'][$id] = $prd;
+			#tenho que dar um refresh para alterar frete, pesos, descontos
 			refresh();
 			return true;
 		}else{
@@ -92,8 +94,8 @@ Deleta um item do carrinho.
 function del($id,$cart){
 	unset($_SESSION['cart'][$id]);
 	# aqui entra um caso particular qdo deletamos o ultimo item do carrinho.
+	# Neste caso excluimos ocarrinho inteiro, assim deletamos os valores.
 	if(count(getCart())==0){
-		#echo "<h1>chamou cancel</h1>";
         cancel();
 	} else {
 		refresh();
@@ -101,7 +103,7 @@ function del($id,$cart){
 }
 
 /*
-Atualiza os valores do carrinho, a toda operacao que envolve qtd.
+Atualiza os valores do carrinho, a toda operacao que envolve trocar/deletar a qtd.
 
 @return void
 */
@@ -126,7 +128,7 @@ function upd($id,$cart,$qtd){
 }
 
 /*
-Cancela todo o carrinho.
+Cancela todo o carrinho. Destroi as sessoes.
 
 @return void
 */
@@ -149,12 +151,12 @@ function incr_decr($id,$op='incr'){
 		$newQtd = ($op=='incr')?++$qtd:--$qtd;
 		$cart = getCart();
 		return $newQtd > 0? upd($id,$cart,$newQtd) : del($id,$cart);
-		
+
 	}
 }
 
 /*
-Cria uma sequencia aleatoria de caracteres, pode ser usada como senhas.
+Cria uma sequencia aleatoria de 10 caracteres, pode ser usada como senhas, ou como identificadores.
 @return string
 */
 function makeHash(){
@@ -163,7 +165,7 @@ function makeHash(){
 
 
 /*
-Retorna o valor do peso
+Retorna o valor total do peso
 @return float
 */
 function getPeso(){
@@ -237,6 +239,8 @@ function getCupom(){
 
 /*
 Efetua o calculo do desconto e grava na session.
+A logica varia muito e cada pessoa tem uma maneira de calcular descontos.
+exemplo se a pessoa digita FR vai para o 1 item do switch
 @return bool
 */
 
@@ -277,6 +281,7 @@ Poderiamos usar varios tipos de funções aqui.
 @return bool
 */
 function recalcFrete(){
+	#o primeiro digito de um cep identifica a regiao.
 	$cep = getCep();
 	$peso = getPeso();
 	$frete = "";
@@ -284,15 +289,15 @@ function recalcFrete(){
 		$_SESSION['frete']="";
 	}else{
 		switch(substr($cep,1)){
-			#case '0': #Gde SP
+			#case '0': #Gde SP , esta dando erro ...
 			case '1': #Interior SP
 			case '2': # RJ,ES
 			case '3': # MG
 				#NESTA REGRA A CADA QUILO A MAIS ADICIONAMOS 3r$ de frete
 				$fator = 3;
-				$frete = $peso >0? $peso * $fator : $fator; 
+				$frete = $peso >0? $peso * $fator : $fator;
 				break;
-				
+
 			case '4': # BA, SE
 			case '5': # PE, AL, PB, RN
 			case '6': #regiao Norte + CE, PI, MA
@@ -301,16 +306,15 @@ function recalcFrete(){
 			case '9': #RS
 				#NESTA REGRA A CADA QUILO A MAIS ADICIONAMOS 6r$ de frete
 				$fator = 6;
-				$frete = $peso >0? $peso * $fator : $fator; 
+				$frete = $peso >0? $peso * $fator : $fator;
 				break;
 
 			default:
 				#Se a regiao nao existe, vamos deixar engessado como 10.00
-				$frete = 10;	
+				$frete = 10;
 		}
 		$_SESSION['frete']=number_format($frete,2);
 	}
 
 	return true;
 }
-

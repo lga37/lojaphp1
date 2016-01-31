@@ -25,6 +25,11 @@ SET time_zone = "+00:00";
 --
 -- Estrutura da tabela `categorias`
 --
+create database loja;
+
+use loja;
+
+
 
 CREATE TABLE IF NOT EXISTS `categorias` (
   `id` int(4) unsigned NOT NULL AUTO_INCREMENT,

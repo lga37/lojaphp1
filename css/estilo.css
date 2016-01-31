@@ -1,0 +1,21 @@
+body{
+    padding-top: 80px;
+}
+
+.card .fa:hover{
+    color:red;
+}
+
+.input-qtde-carrinho{
+    width:40px;
+    border:1px solid green;
+}
+
+.fundo-cinza{
+
+background-color: #333;
+}
+
+/* @media
+
+*/

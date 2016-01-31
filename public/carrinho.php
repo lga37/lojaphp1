@@ -1,14 +1,13 @@
 <?php
 include_once "header.php";
-
-
 ?>
 
     <div class="col-md-9">
 
         <?php
-            #vem pelo id, ou por form-upd
-            #request analisa tanto post quanto get
+            #controlador do carrinho, recebe alguma acao por $_GET ou $_POST
+            #vem pelo id, ou por form-upd do proprio carrinho
+            #$_REQUEST é um array superglobal, analisa tanto post quanto get
             if(isset($_REQUEST['action'])){
                 $cart = getCart();
                 switch(strtoupper($_REQUEST['action'])){
@@ -46,7 +45,7 @@ include_once "header.php";
                             $_SESSION['cupom']=$_POST["cupom"];
                             recalcDesconto();
                         }
-                    break;                      
+                    break;
 
                     case "END":
                         #envia email
@@ -59,23 +58,23 @@ include_once "header.php";
                             $msg .= $assunto;
                             #transformamos o $_POST em variaveis com extract
                             extract($_POST);
-                            #gravamos o nome em um cookie.
+                            #gravamos o nome em um cookie, para uma saudação na próx visita.
                             setcookie("nome",$nome,time()+86400);
                             $msg .= "Nome : ". $nome ."\n";
                             $msg .= "Email : ". $email ."\n";
                             $msg .= "Tel : ". $tel ."\n";
                             $msg .= "Endereco : ". $endereco ."\n";
                             $msg .= "Itens comprados\n";
-                            $msg .= str_repeat("=", 70)."\n"; 
+                            $msg .= str_repeat("=", 70)."\n";
                             foreach($cart as $item){
                                 extract($item);
-                                $msg .= str_pad($id, 10, " ") . 
-                                        str_pad($nome, 30, " ") . 
-                                        str_pad($qtd, 10, " ") . 
-                                        str_pad($preco, 10, " ") . 
-                                        str_pad($preco * $qtd, 10, " ") . "\n"; 
+                                $msg .= str_pad($id, 10, " ") .
+                                        str_pad($nome, 30, " ") .
+                                        str_pad($qtd, 10, " ") .
+                                        str_pad($preco, 10, " ") .
+                                        str_pad($preco * $qtd, 10, " ") . "\n";
                             }
-                            $msg .= str_repeat("=", 70)."\n"; 
+                            $msg .= str_repeat("=", 70)."\n";
                             #str_pad($input, 10, " ", STR_PAD_RIGHT);
 
                             $msg .= str_pad("SubTotal",60," ") . getSubTotal() ."\n";
@@ -84,7 +83,8 @@ include_once "header.php";
                             $msg .= str_pad("Total",60," ") . getTotal() ."\n\n";
 
                             $msg .= "Um grande abraço e voltem sempre !!";
-                            
+
+                            #estou pegando estas constantes la do config
                             $emailDeOrigem=EMAIL;
                             $nomeDeOrigem=EMAILNOME;
                             $senha=SENHA;
@@ -100,14 +100,12 @@ include_once "header.php";
                             } else {
                                 echo "<h2>Erro no envio de e-mail.</h2>";
                             }
-                            
+
                         }
 
-                    break;    
+                    break;
                 }
             }
-
- 
 
             $cart = getCart();
             if(empty($cart)){
@@ -124,6 +122,7 @@ include_once "header.php";
                     extract($item);
                     #$linkPlus1 = "<a class=\"btn pull-right btn-warn\" href=".$_SERVER['PHP_SELF']."?action=incr&id=".$id."><i class=\"fa fa-plus\"></i></a>";
                     #$linkLess1 = "<a class=\"btn pull-left btn-warn\" href=".$_SERVER['PHP_SELF']."?action=decr&id=".$id."><i class=\"fa fa-minus\"></i></a>";
+
                     $linkDel = "<a class=\"btn pull-left btn-danger\" href=".$_SERVER['PHP_SELF']."?action=del&id=".$id."><i class=\"fa fa-trash-o\"></i></a>";
                     $inputUpd = "<form class=\"form-inline\" name=".$id." method=\"POST\" action=".$_SERVER['PHP_SELF']."?action=upd&id=".$id.">
 
@@ -135,6 +134,7 @@ include_once "header.php";
 
                         <button class=\"btn btn-success\"><i class=\"fa fa-undo\"></i></button>
                         </form>";
+                    #jogamos tudo em printf, assim temos toda a instrução numa unica linha.
                     printf("<tr><td>%d</td><td>%s</td><td>%.2f</td><td>%s</td><td>%.2f</td><td>%s</td></tr>",
                                     $id,$nome,$preco,$inputUpd,$preco*$qtd,$linkDel);
                 }
@@ -142,13 +142,13 @@ include_once "header.php";
 
                 <tr class="warning">
                     <td class="text-right" colspan="4">SubTotal</td>
-                    <td colspan="2"><?php echo getSubTotal() ? number_format(getSubTotal(),2): "" ?></td>
+                    <td colspan="2"><?php echo getSubTotal() ? number_format(getSubTotal(),2,",","."): "" ?></td>
                 </tr>
 
                 <tr>
                     <td>CEP</td>
                     <td colspan="3">
-                    <form name="frete" class="form-inline" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?action=frete">    
+                    <form name="frete" class="form-inline" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?action=frete">
                         <input type="number" value="<?php echo getCep() ?>" class="form-control" name="cep">
                         <button class="btn btn-info"><i class="fa fa-truck"></i></button>
                     </form>
@@ -159,7 +159,7 @@ include_once "header.php";
                 <tr>
                     <td>CUPOM</td>
                     <td colspan="3">
-                    <form name="frete" class="form-inline" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?action=desconto"> 
+                    <form name="frete" class="form-inline" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?action=desconto">
                         <input type="text" value="<?php echo getCupom() ?>" class="form-control" name="cupom">
                         <button class="btn btn-info"><i class="fa fa-gift"></i></button>
                     </form>
@@ -169,7 +169,7 @@ include_once "header.php";
 
                 <tr class="info">
                     <td class="text-right" colspan="4">Total</td>
-                    <td colspan="2"><?php echo getTotal() ?></td>
+                    <td colspan="2"><b><?php echo number_format(getTotal(),2,",",".") ?></b></td>
                 </tr>
 
             </tbody>
@@ -213,7 +213,7 @@ include_once "header.php";
                 </form>
 
                 <?php
-            }#se existe carrinho 
+            }#se existe carrinho
         ?>
 
     </div><!-- col-md-9 -->
