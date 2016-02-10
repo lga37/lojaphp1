@@ -2,8 +2,8 @@
 include_once "header.php";
 ?>
 
-    <div class="col-md-9">
-        <div class="row produtos" id="inicio"><!-- ####### inicio ######## -->
+    <div class="col-md-12 col-sm-12">
+        <div class="row"><!-- ####### inicio ######## -->
 
         <?php
             #busca palavra chave / categ_id / se nehum dos 2 -> redireciona home
@@ -24,13 +24,14 @@ include_once "header.php";
             #se nao esta vazio criamos nossa lista de produtos
             if(!empty($array)){
 
+                echo "<table class=\"table table-striped table-hover table-bordered table-condensed\">";
                 foreach($array as $produto){
                     #com extract extraimos as variaveis que sao as chaves associativas.
                     extract($produto);
-                    montaItemVitrine($id,$nome,$img,$preco,$prazo,$estoque);
+                    montaListagemTabela($id,$nome,$img,$preco,$prazo,$estoque);
                     #regra para se exibir a informação do prazo de entrega.                   
-
                 }
+                echo "</table>";
 
             } else {
                 #neste caso nossa consulta nao retornou dados.

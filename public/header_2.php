@@ -56,35 +56,15 @@ session_start();
 
 
     <header>
-      <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-            &#9776;
-          </button>
+      <nav class="">
 
 
-        <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-          <a class="navbar-brand text-primary" href="#">>_ LGA</a>
-          <ul class="nav navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-            </li>
+        <div class=" toggleable-xs" id="exCollapsingbar2">
+          <a class=" text-primary" href="#">>_ LGA</a>
 
-
-            <li class="nav-item">
-              <a class="nav-link" href="carrinho.html">Carrinho</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="cadastro.html">Cadastro</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-uppercase" href="admin.html"><i class="fa fa-list"></i> Admin</a>
-            </li>
-          </ul>
-
-
-          <form class="form-inline pull-xs-right">
-            <input class="form-control" type="text" placeholder="Search">
-            <button class="btn btn-success-outline" type="submit">Search</button>
+          <form class="inline pull-xs-right">
+            <input class="" type="text" placeholder="Search">
+            <button class=" -success-outline" type="submit">Search</button>
           </form>
 
         </div>
@@ -94,10 +74,10 @@ session_start();
         <section>
       <div class="row">
 
-        <div class="col-sm-3">
-          <div id="menu-lateral">
+        <div class="3">
 
-            <div class="list-group">
+
+            <div class="">
 
 
                <?php
@@ -120,30 +100,18 @@ session_start();
                         #temos a classe active do bs4 p ser usada
                         #com printf misturamos mais facilmente o html e o php, poderiamos usar echo.
 
-                        printf("<a href=listagem.php?id=%d class=list-group-item><span class=\"pull-right label label-info label-pill\">%d</span>%s</a>",$id,$qtd,$nome);
+                        printf("<a href=listagem.php?id=%d>%s</a><br>",$id,$nome);
                     }
                 ?>
 
-            </div><!-- list-group -->
+            </div><!--  -->
 
-            <br><br>
-            <div class="list-group">
-              <a href="#" class="list-group-item active">
-                <h4 class="list-group-item-heading">Assistencia Técnica</h4>
-                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <h4 class="list-group-item-heading">Suporte Online</h4>
-                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              </a>
-            </div><!-- list-group -->
 
-          </div><!-- menu-lateral -->
 
-        </div><!-- col-sm-3 -->
+        </div><!-- 3 -->
 
         <!-- #################################################### -->
-        <div class="col-sm-9">
+        <div class="9">
           <div class="row">
 
 

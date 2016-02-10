@@ -1,0 +1,9 @@
+{
+	"dependencies": {
+
+	    "jquery"  : "*",
+	    "tether"  : "*",
+	    "font-awesome"  : "*"
+	  }
+	
+}

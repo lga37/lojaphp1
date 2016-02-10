@@ -1,8 +1,8 @@
 <?php
 
-class MYSQLI{
-    private static $_cn;
-    private static $cn;
+abstract class BDMYSQL{
+    protected $_cn;
+    private $cn;
     private static $instance;
 
     private function __construct(){
@@ -12,7 +12,7 @@ class MYSQLI{
 
         #$cn = new mysqli(HOST,USER,PASS,NAME) or die("erro linha :".__LINE__."arq:".__FILE__);
 
-        self::$cn = new mysqli(HOST,USER,PASS,NAME) || die("erro ". mysql_error());
+        $this->_cn = new mysqli(HOST,USER,PASS,NAME) || die("erro ". mysql_error());
         // $cn = new mysqli(HOST,USER,PASS,NAME) || die("erro ". mysql_error());
         // if($cn->connect_errno){
         //     die("erro MYSQL");
@@ -25,30 +25,30 @@ class MYSQLI{
     private function __clone(){}
 
     private function __destruct(){
-        $this->_cn->close();
+        $this->cn->close();
     }
 
     # Padrao de projeto chamado singleton, muito usado em PHP
+/*
     public static function getInstance(){
         if(empty(self::$instance)){
             self::$instance = new self();
         }
         return self::$instance;
     }
-
     public static function getConn(){
         self::getInstance();
         return self::$cn;
     }
+*/
 
-
-    public static function query($sql){
+    public function query($sql){
         if(!$sql){
             die("Faltou o SQL");
         }
 
-        #$result = $this->_cn->query($sql);
-        $result = self::getConn()->query($sql);
+        $result = $this->_cn->query($sql);
+        #$result = self::getConn()->query($sql);
 
         if($result){
             $res = array();
@@ -66,23 +66,26 @@ class MYSQLI{
     }
 
 
-    public static function count($tabela){
+    public function count($tabela){
         $sql = "SELECT COUNT(1) FROM $tabela;";
-        $res = self::getConn()->query($sql);
+        $res = $this->_cn->query($sql);
+        #$res = self::getConn()->query($sql);
 
         return (int) $res->fetch_row();
     }
 
 
-    public static function dateToMySql($date){
+
+
+    public function dateToMySql($date){
         return implode("-",array_reverse(explode("/",$date)));
     }
 
-    public static function dateFromMySql($date){
+    public function dateFromMySql($date){
         return implode("/",array_reverse(explode("-",$date)));
     }
 
-    public static function decimalToMySql($value){
+    public function decimalToMySql($value){
         return number_format($value,2,".");
     }
 

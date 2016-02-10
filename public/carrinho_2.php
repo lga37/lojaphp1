@@ -1,8 +1,8 @@
 <?php
-include_once "header.php";
+include_once "header_2.php";
 ?>
 
-    <div class="col-md-12 col-sm-12">
+    <div class="col-md-9 col-sm-9">
 
         <?php
             #controlador do carrinho, recebe alguma acao por $_GET ou $_POST
@@ -115,19 +115,10 @@ include_once "header.php";
 
 
 
+              <br><br><br><br>
 
-              <table class="table table-striped table-hover table-bordered table-condensed">
-                <thead class="thead-default">
-                  <tr>
-                    <th>ID</th>
-                    <th>Produto</th>
-                    <th>Preco</th>
-                    <th>Qtd</th>
-                    <th>Total</th>
-                    <th>Del</th>
-                  </tr>
-                </thead>
-
+              <table class="" border="1">
+                
             <?php
                 foreach($cart as $item){
                     #com extract temos o array transformado em variaveis.
@@ -135,13 +126,10 @@ include_once "header.php";
                     #$linkPlus1 = "<a class=\"btn pull-right btn-warn\" href=".$_SERVER['PHP_SELF']."?action=incr&id=".$id."><i class=\"fa fa-plus\"></i></a>";
                     #$linkLess1 = "<a class=\"btn pull-left btn-warn\" href=".$_SERVER['PHP_SELF']."?action=decr&id=".$id."><i class=\"fa fa-minus\"></i></a>";
 
-                    $linkDel = "<a class=\"btn btn-danger\" href=".$_SERVER['PHP_SELF']."?action=del&id=".$id."><i class=\"fa fa-trash fa-2x\"></i></a>";
-                    $inputUpd = "<form class=\"form-inline\" name=".$id." method=\"POST\" action=".$_SERVER['PHP_SELF']."?action=upd&id=".$id.">
-
-                    <div class=\"form-group\">
-                        <input type=\"text\" class=\"input-qtde-carrinho form-control text-success\" name=\"qtd\" value=".$qtd.">
-                        <button class=\"btn btn-success\"><i class=\"fa fa-refresh\"></i></button>
-                    </div>  
+                    $linkDel = "<a href=".$_SERVER['PHP_SELF']."?action=del&id=".$id.">X</a>";
+                    $inputUpd = "<form name=".$id." method=\"POST\" action=".$_SERVER['PHP_SELF']."?action=upd&id=".$id.">
+                        <input type=\"number\" name=\"qtd\" value=".$qtd.">
+                        <button>UPD</button>
                         </form>";
                     #jogamos tudo em printf, assim temos toda a instrução numa unica linha.
                     printf("<tr><td>%d</td><td>%s</td><td>%.2f</td><td>%s</td><td>%.2f</td><td>%s</td></tr>",
@@ -160,8 +148,8 @@ include_once "header.php";
                     <td>CEP</td>
                     <td colspan="3">
                     <form name="frete" class="form-inline" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?action=frete">
-                        <input type="number" value="<?php echo getCep() ?>" class="form-control" name="cep">
-                        <button class="btn btn-info"><i class="fa fa-truck"></i></button>
+                        <input type="number" value="<?php echo getCep() ?>"  name="cep">
+                        <button>FRETE</button>
                     </form>
                     </td>
                     <td colspan="2"><?php echo getFrete() ?></td>
@@ -173,8 +161,8 @@ include_once "header.php";
                     <td>CUPOM</td>
                     <td colspan="3">
                     <form name="frete" class="form-inline" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?action=desconto">
-                        <input type="text" value="<?php echo getCupom() ?>" class="form-control" name="cupom">
-                        <button class="btn btn-info"><i class="fa fa-gift"></i></button>
+                        <input type="text" value="<?php echo getCupom() ?>"  name="cupom">
+                        <button>CUPOM</button>
                     </form>
                     </td>
                     <td colspan="2"><?php echo getDesconto() ?></td>
@@ -186,41 +174,19 @@ include_once "header.php";
                 </tr>
 
         </table>
+    
+        <h2>formulario</h2>
 
+        <form name="dadosCliente" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?action=end">
+        <input type="text"  placeholder="Nome" name="nome" required><br>
+        <input type="email"  placeholder="Email" name="email" required><br>
+        <input type="tel"  placeholder="Fone" name="tel" required><br>
+        <input type="text"  placeholder="Endereço" name="endereco" required><br>
 
-        <form name="dadosCliente" method="POST" 
-        action="<?php echo $_SERVER['PHP_SELF'] ?>?action=end">
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-addon"><i class="fa fa-user"></i></div>
-              <input type="text" class="form-control" id="exampleInputAmount" placeholder="Nome">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-              <input type="text" class="form-control" id="exampleInputAmount" placeholder="Email">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-addon"><i class="fa fa-comments-o"></i></div>
-              <textarea  placeholder="Digite Endereco" class="form-control" 
-              id="endereco" rows="3"></textarea>
-            </div>
-          </div>
-
-            <div class="row">
-                <div class="form-group col-xs-12">
-                    <button class="btn btn-success-outline btn-lg">Enviar</button>
-
-                    <a href="<?php echo $_SERVER['PHP_SELF'] ?>?action=cancel" 
-                    class="btn pull-right btn-danger-outline btn-lg">Cancel</a>
-                </div>
-            </div>
+        <button>Send</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="<?php echo $_SERVER['PHP_SELF'] ?>?action=cancel">Cancel</a><br>
         </form>
-
-
 
                 <?php
             }#se existe carrinho
@@ -228,4 +194,4 @@ include_once "header.php";
 
     </div><!-- col-md-9 -->
 <?php
-include_once "footer.php";
+include_once "footer_2.php";

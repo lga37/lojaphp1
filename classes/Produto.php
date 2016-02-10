@@ -3,8 +3,14 @@ class Produto {
 	#nao podemos usar define dentro de classes.
 	#const TABELA="produtos";
 
+	function __construct(){
+		$this->bd = new DB();
+		$this->tabela = 'produtos';
+	}
+
 	public static function getById($id){
 		$sql = sprintf("SELECT * FROM %s WHERE id=%d LIMIT 1;", "produtos" , $id);
+		#$res = $this->bd->query($sql);
 		$res = BD::query($sql);
 		#echo "<pre>";
 		#print_r($res);
@@ -61,6 +67,7 @@ class Produto {
 	*/
 	public static function getAllByBusca($busca){
 		#temos que retirar estes caracteres, pois nao estamos usando prepared statements
+		$busca = preg_replace('/^[;"\'-]$/', '', $busca);
 		$busca=trim($busca,";");
 		$busca=trim($busca,"'");
 		$busca=trim($busca,"--");

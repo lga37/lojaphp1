@@ -64,6 +64,7 @@ Adiciona um item ao carrinho.
 function add($id,$cart){
 	$prd = Produto::getById($id);
 	#poderiamos tb usar extract.
+	$prod_nome = $prd['nome'];
 	$id = $prd['id'];
 	$prazo = $prd['prazo'];
 	$estoque = $prd['estoque'];
@@ -78,7 +79,17 @@ function add($id,$cart){
 			refresh();
 			return true;
 		}else{
-			echo "Produto esgotado!";
+			?>
+              <div class="alert alert-danger alert-dismissible fade in" 
+              role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                Produto Esgotado <strong><?= $prod_nome ?></strong>
+              </div>
+
+			<?php
+			#echo "Produto esgotado!";
 		}
 	}
 	return false;

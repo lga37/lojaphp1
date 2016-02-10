@@ -1,5 +1,4 @@
 <?php
-
 #este arquivo tambem jogamos la na raiz para assim ficar protegido pelo /public
 
 function enviaEmail($emailDeOrigem,$nomeDeOrigem,$senha,$emailDeDestino,$nomeDeDestino,$assunto,$msg){
@@ -40,10 +39,6 @@ function enviaEmail($emailDeOrigem,$nomeDeOrigem,$senha,$emailDeDestino,$nomeDeD
 	// Define os dados técnicos da Mensagem
 	// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-
-
-
-
 	$mail->ContentType = 'text/plain';
 	#$mail->IsHTML(true);
 	$mail->CharSet = 'UTF-8'; // Charset da mensagem (opcional)
@@ -73,7 +68,7 @@ function enviaEmail($emailDeOrigem,$nomeDeOrigem,$senha,$emailDeDestino,$nomeDeD
 	return true; #booleano
 }
 
-
+/*
 function montaItemVitrine($id,$nome,$img,$preco,$prazo,$estoque){
     if($estoque < 1){
         $disponib = ($prazo == 'E')? "esgotado" : $prazo." dia(s)";
@@ -108,7 +103,7 @@ function montaItemVitrine($id,$nome,$img,$preco,$prazo,$estoque){
     </div>
     <?php
 }
-
+*/
 
 function paginate($total=43,$per_page=5){
 
@@ -161,22 +156,46 @@ function montaItemVitrineBS4($id,$nome,$img,$preco,$prazo,$estoque){
     <div class="col-sm-3">
       <div class="card card-success">
         <div class="card-block">
-          <h4 class="card-title"><? = $nome ?></h4>
+          <h4 class="card-title"><?= substr($nome,0,20) ?></h4>
           <h6 class="card-subtitle text-muted"><a href="#" class="card-link">+ Asus</a></h6>
         </div>
-        <img src="img/img1.jpg" class="img-thumbnail" alt="Card image">
+        <img src="img/<?= $img ?>" class="img-thumbnail" alt="Card image">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><h4>R$ <? = $preco ?></h4></li>
-          <li class="list-group-item text-success"><? = $disponib ?></li>
+          <li class="list-group-item"><h4>R$ <?= $preco ?></h4></li>
+          <li class="list-group-item text-success"><?= $disponib ?></li>
           <li class="list-group-item">
-            <a href="#" class="card-link"><i class="fa fa-heart fa-2x"></i></a>
-            <a href="carrinho.html" class="card-link"><i class="fa fa-shopping-cart fa-2x"></i></a>
+            <!-- <a href="#" class="card-link"><i class="fa fa-heart fa-2x"></i></a> -->
+            <a href="carrinho.php?action=add&id=<?=$id?>" role="button" title="add to cart" class="card-link"><i class="fa fa-shopping-cart fa-2x"></i></a>
             <a href="detalhe.html" class="card-link"><i class="fa fa-external-link fa-2x"></i></a>
           </li>
         </ul>
       </div><!-- card -->
     </div><!-- .col-sm-3 -->
 
+
+    <?php
+}
+
+
+function montaListagemTabela($id,$nome,$img,$preco,$prazo,$estoque){
+    if($estoque < 1){
+        $disponib = ($prazo == 'E')? "esgotado" : $prazo." dia(s)";
+    } else {
+        $disponib = "pronta-entrega";
+    }
+
+    ?>
+
+    <tr>
+        <td><?= $id ?></td>
+        <td><?= $nome ?></td>
+        <td><?= $preco ?></td>
+        <td><?= $disponib ?></td>
+        <td><a href="carrinho.php?action=add&id=<?=$id?>" role="button" 
+        title="add to cart" class="card-link">
+        <i class="fa fa-shopping-cart fa-2x"></i></a></td>
+
+    </tr>
 
     <?php
 }
