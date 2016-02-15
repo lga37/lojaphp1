@@ -21,7 +21,7 @@ setlocale(LC_ALL,"pt_BR");
 date_default_timezone_set("America/Sao_Paulo");
 ini_set("display_startup_errors",TRUE);
 ini_set("display_errors",TRUE);
-define("ENV","DEVELOP"); #PROD
+define("ENV","PROD"); #PROD
 $url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/lojaphp1/public/';
 define("URL", $url);
 
