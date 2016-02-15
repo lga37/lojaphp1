@@ -16,10 +16,20 @@ Você deve ter recebido uma cópia da Licença Pública Geral GNU junto
 com este programa. Se não, veja <http://www.gnu.org/licenses/>.
 */
 
-@include_once "../config/config.php";
+
+setlocale(LC_ALL,"pt_BR");
+date_default_timezone_set("America/Sao_Paulo");
+ini_set("display_startup_errors",TRUE);
+ini_set("display_errors",TRUE);
+define("ENV","DEVELOP"); #PROD
+$url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/lojaphp1/public/';
+define("URL", $url);
+
+@include_once "../config/config.". strtolower(ENV) .".php";
 
 function __autoload($classe){
-    if(in_array(strtolower($classe), ['phpmailer','smtp'])){
+    $pastas = array('phpmailer','smtp');
+    if(in_array(strtolower($classe), $pastas)){
         require_once("../phpmailer/class.".strtolower($classe).".php");
     } else {
         require_once("../classes/".$classe.".php");
@@ -76,9 +86,7 @@ session_start();
 
         <div class="3">
 
-
-            <div class="">
-
+            <div class="esquerda">
 
                <?php
                     #Montamos nossa query basica.
@@ -100,18 +108,14 @@ session_start();
                         #temos a classe active do bs4 p ser usada
                         #com printf misturamos mais facilmente o html e o php, poderiamos usar echo.
 
-                        printf("<a href=listagem.php?id=%d>%s</a><br>",$id,$nome);
+                        printf("<a href=listagem_2.php?id=%d>%s</a><br>",$id,$nome);
                     }
                 ?>
 
             </div><!--  -->
 
-
-
         </div><!-- 3 -->
 
         <!-- #################################################### -->
-        <div class="9">
+        <div class="9 direita">
           <div class="row">
-
-

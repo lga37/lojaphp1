@@ -15,11 +15,21 @@ Licença Pública Geral GNU para maiores detalhes.
 Você deve ter recebido uma cópia da Licença Pública Geral GNU junto
 com este programa. Se não, veja <http://www.gnu.org/licenses/>.
 */
-
-@include_once "../config/config.php";
+setlocale(LC_ALL,"pt_BR");
+date_default_timezone_set("America/Sao_Paulo");
+ini_set("display_startup_errors",TRUE);
+ini_set("display_errors",TRUE);
+define("ENV","DEVELOP"); #PROD
+$url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/lojaphp1/public/';
+define("URL", $url);
+#echo "<pre>";
+#print_r($_SERVER);die;
+#echo PATH;
+@include_once "../config/config.". strtolower(ENV) .".php";
 
 function __autoload($classe){
-    if(in_array(strtolower($classe), ['phpmailer','smtp'])){
+    $pastas = array('phpmailer','smtp');
+    if(in_array(strtolower($classe), $pastas)){
         require_once("../phpmailer/class.".strtolower($classe).".php");
     } else {
         require_once("../classes/".$classe.".php");
@@ -63,27 +73,27 @@ session_start();
 
 
         <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-          <a class="navbar-brand text-primary" href="#">>_ LGA</a>
+          <a class="navbar-brand text-primary" href="<?=URL?>">>_ LGA</a>
           <ul class="nav navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="<?=URL?>">Home <span class="sr-only">(current)</span></a>
             </li>
 
 
             <li class="nav-item">
-              <a class="nav-link" href="carrinho.html">Carrinho</a>
+              <a class="nav-link" href="<?=URL?>carrinho.php">Carrinho</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="cadastro.html">Cadastro</a>
+              <a class="nav-link" href="<?=URL?>login.php">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-uppercase" href="admin.html"><i class="fa fa-list"></i> Admin</a>
+              <a class="nav-link text-uppercase" href="<?=URL?>../admin/admgus.php"><i class="fa fa-list"></i> Admin</a>
             </li>
           </ul>
 
 
-          <form class="form-inline pull-xs-right">
-            <input class="form-control" type="text" placeholder="Search">
+          <form class="form-inline pull-xs-right" method="post" action="<?=URL?>listagem.php">
+            <input class="form-control" name="busca" type="text" placeholder="Search">
             <button class="btn btn-success-outline" type="submit">Search</button>
           </form>
 
@@ -108,7 +118,7 @@ session_start();
                     $sql2 = "SELECT c.id,c.nome,COUNT(p.id) AS qtd FROM categorias as c LEFT JOIN produtos as p ON p.categ_id=c.id GROUP BY c.id ORDER BY c.nome;";
 
                     #Com a query montada acessamos nossa classe BD e chamamos o método query passando a consulta.
-                    $array= BD::query($sql2);
+                    $array= BD::query($sql);
                     #iteramos sobre o array resultante, onde ja vira no formato [id][nome]
                     #poderiamos tambem usar extract
                     foreach($array as $categ){

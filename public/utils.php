@@ -176,6 +176,37 @@ function montaItemVitrineBS4($id,$nome,$img,$preco,$prazo,$estoque){
     <?php
 }
 
+function montaItemVitrine($id,$nome,$img,$preco,$prazo,$estoque){
+    if($estoque < 1){
+        $disponib = ($prazo == 'E')? "esgotado" : $prazo." dia(s)";
+    } else {
+        $disponib = "pronta-entrega";
+    }
+
+    ?>
+
+    <div class="col-sm-3">
+      <div class="">
+        <div class="">
+          <h4 class=""><?= substr($nome,0,20) ?></h4>
+        </div>
+        <img src="img/<?= $img ?>" class="img-thumbnail" alt="Card image">
+        <ul class="">
+          <li class="">R$ <?= $preco ?></li>
+          <li class=" text-success"><?= $disponib ?></li>
+          <li class="">
+            <!-- <a href="#" class="card-link"><i class="fa fa-heart fa-2x"></i></a> -->
+            <a href="carrinho_2.php?action=add&id=<?=$id?>" role="button" title="add to cart" class="card-link"><i class="fa fa-shopping-cart fa-2x"></i></a>
+            <a href="detalhe_2.php" class="card-link"><i class="fa fa-external-link fa-2x"></i></a>
+          </li>
+        </ul>
+      </div><!-- card -->
+    </div><!-- .col-sm-3 -->
+
+
+    <?php
+}
+
 
 function montaListagemTabela($id,$nome,$img,$preco,$prazo,$estoque){
     if($estoque < 1){
@@ -194,7 +225,6 @@ function montaListagemTabela($id,$nome,$img,$preco,$prazo,$estoque){
         <td><a href="carrinho.php?action=add&id=<?=$id?>" role="button" 
         title="add to cart" class="card-link">
         <i class="fa fa-shopping-cart fa-2x"></i></a></td>
-
     </tr>
 
     <?php

@@ -15,9 +15,23 @@ body{
 	background-color: #333;
 }
 
+.largura-metade{
+	width: 50%;
+}
 /* @media
 
 */
+
+.esquerda{
+	float: left;
+	border: 1px solid #000;
+}
+.direita{
+	float: left;
+	border: 1px solid blue;
+	width: 70%;
+	margin-left: 30px;
+}
 
 @media (min-width: 34em) { 
 

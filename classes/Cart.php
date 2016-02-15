@@ -226,7 +226,11 @@ Devolve o total da compra, fazendo as devidas contas.
 
 function getTotal(){
 	#aproveitei para usar aqui o operador ternario curto.
-	return getSubTotal()+getFrete()-getDesconto() ?: "";
+	#return getSubTotal()+getFrete()-getDesconto() ?: "";
+	if(getSubTotal()+getFrete()-getDesconto()){
+		return getSubTotal()+getFrete()-getDesconto();
+	}
+	return "";
 }
 
 

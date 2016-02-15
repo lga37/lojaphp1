@@ -8,15 +8,10 @@ include_once "header_2.php";
                 foreach(Produto::getAllByRand(15) as $produto){
                     #print_r($produto);die;
                     extract($produto);
-
-                    montaItemVitrineBS4($id,$nome,$img,$preco,$prazo,$estoque);
+                    montaItemVitrine($id,$nome,$img,$preco,$prazo,$estoque);
                 }
             ?>
           </div><!-- .row -->
-
-
-
-
 
 
 

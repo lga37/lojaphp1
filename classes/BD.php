@@ -8,6 +8,7 @@ class BD{
         #vamos usar PDO mas poderiamos usar mysqli.
         #pegando todas as configuracoes em config.php atraves dos defines.
         $dsn = "%s:dbname=%s;host=%s;port=%d;charset=%s";
+        #echo DRIVER;die;
         self::$cn = new PDO(sprintf($dsn,DRIVER,NAME,HOST,PORT,CHARSET),USER,PASS);
         self::$cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         self::$cn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);

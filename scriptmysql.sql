@@ -25,9 +25,9 @@ SET time_zone = "+00:00";
 --
 -- Estrutura da tabela `categorias`
 --
-create database loja;
+--create database loja;
 
-use loja;
+--use loja;
 
 
 

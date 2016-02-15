@@ -1,10 +1,12 @@
 <?php
 include_once "header.php";
+
+$id = (int) $_GET['id'];
+
 ?>
 
             <div class="col-sm-6"><!-- 1 coluna -->
               <img class="img-thumbnail" src="http://lorempixel.com/500/500/abstract/8" alt="">
-
             </div>
 
               <div class="col-sm-6"><!-- 2 coluna -->
